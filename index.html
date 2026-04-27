@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Admin Pterodactyl</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Create Root Admin</h2>
+
+  <input id="email" placeholder="Email">
+  <input id="username" placeholder="Username">
+  <input id="password" placeholder="Password">
+
+  <button onclick="createAdmin()">Create Admin</button>
+
+  <p id="result"></p>
+</div>
+
+<script>
+async function createAdmin() {
+  const data = {
+    email: document.getElementById("email").value,
+    username: document.getElementById("username").value,
+    first_name: "Admin",
+    last_name: "Panel",
+    password: document.getElementById("password").value,
+    root_admin: true
+  };
+
+  const res = await fetch("/api/create-admin", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+  const result = await res.json();
+  document.getElementById("result").innerText = JSON.stringify(result);
+}
+</script>
+
+</body>
+</html>
